@@ -1,8 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -11,8 +11,26 @@ const LoginForm = () => {
 
   return (
     <Container>
-      <div className="login-wrapper">
-        <h2>Login</h2>
+      <div className="register-wrapper">
+        <div className="back-form" onClick={() => navigate(-1)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="back-icon"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+            />
+          </svg>
+          뒤로 가기
+        </div>
+
+        <h2>Sign Up</h2>
         <form className="input-group" onClick={handleSubmit}>
           <input
             type="email"
@@ -28,25 +46,8 @@ const LoginForm = () => {
             className="password"
             placeholder="Password"
           />
-          <button type="submit">Login</button>
+          <button type="submit">Submit</button>
         </form>
-      </div>
-      <div className="signup-wrapper" onClick={() => navigate('/signup')}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="svg-icon"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
-          />
-        </svg>
-        <div className="signup-text"> Sign up</div>
       </div>
     </Container>
   );
@@ -56,7 +57,7 @@ const Container = styled.div`
   width: 25rem;
   height: fit-content;
   padding-top: 3rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   background-color: white;
   border: 1px solid #e6e6e6;
   border-radius: 0.3rem;
@@ -66,7 +67,29 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  > .login-wrapper .input-group {
+  > .register-wrapper .back-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    gap: 0.5rem;
+    top: 1rem;
+    left: 1rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #8e8e8e;
+    font-weight: 600;
+    &:hover {
+      color: #262626;
+    }
+    > .back-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+    }
+  }
+
+  > .register-wrapper .input-group {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
@@ -97,31 +120,6 @@ const Container = styled.div`
       }
     }
   }
-  > .signup-wrapper {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    > .svg-icon {
-      width: 1.5rem;
-      height: 1.5rem;
-      color: #7575a1;
-      border-radius: 50%;
-      padding: 0.3rem;
-      border: 1px solid #e6e6e6;
-      transition-duration: 150ms;
-      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      &:hover {
-        color: white;
-        background-color: #4f4f6d;
-      }
-    }
-    > .signup-text {
-      margin-top: 0.2rem;
-      font-size: 0.8rem;
-      color: #7575a1;
-    }
-  }
 `;
 
-export default LoginForm;
+export default RegisterForm;

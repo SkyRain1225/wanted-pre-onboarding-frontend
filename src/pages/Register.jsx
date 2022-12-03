@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import LoginForm from '../components/LoginForm';
-
-const Login = () => {
+import RegisterForm from '../components/RegisterForm';
+const Register = () => {
   return (
     <Container>
-      <LoginForm />
+      <RegisterForm />
     </Container>
   );
 };
@@ -17,5 +16,4 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export default Login;
+export default Register;
