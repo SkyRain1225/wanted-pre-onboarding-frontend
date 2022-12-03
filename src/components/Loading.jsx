@@ -18,7 +18,7 @@ const Container = styled.div`
   > .loader {
     width: 3rem;
     height: 3rem;
-    border: 0.3rem solid #fff;
+    border: 0.3rem solid #a6a6a6;
     border-bottom-color: transparent;
     border-radius: 50%;
     display: inline-block;
