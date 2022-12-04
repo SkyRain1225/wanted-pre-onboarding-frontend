@@ -48,7 +48,6 @@ const Todo = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log(token);
     if (token) {
       instance.get('/todos').then((res) => {
         setTodos(res.data);

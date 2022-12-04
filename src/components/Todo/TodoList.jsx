@@ -8,8 +8,6 @@ const TodoList = ({ todos, handleDelete, handleEdit }) => {
   const [value, setValue] = useState('');
 
   const handleEditMode = (id, isComplete) => {
-    console.log('ddddd');
-
     if (edit === id) {
       return;
     }
@@ -20,7 +18,6 @@ const TodoList = ({ todos, handleDelete, handleEdit }) => {
   };
 
   const handleChecked = (id) => {
-    console.log('sdsdsd');
     setChecked(!checked);
   };
 
