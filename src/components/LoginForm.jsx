@@ -7,6 +7,8 @@ import { instance } from '../api/api';
 const LoginForm = () => {
   const navigate = useNavigate();
 
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -17,7 +19,19 @@ const LoginForm = () => {
       ...form,
       [e.target.name]: e.target.value,
     });
-    console.log(form);
+    if (form.email && !isEmail(form.email)) {
+      setEmailError(true);
+    }
+    if (form.password && !isPassword(form.password)) {
+      setPasswordError(true);
+    }
+    if (isEmail(form.email)) {
+      setEmailError(false);
+    }
+    if (isEmail(form.email) && isPassword(form.password)) {
+      setEmailError(false);
+      setPasswordError(false);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -36,12 +50,12 @@ const LoginForm = () => {
           console.log(err);
         });
     }
+
     if (!isEmail(form.email)) {
-      alert('이메일 형식이 아닙니다.');
-      return;
-    } else if (!isPassword(form.password)) {
-      alert('비밀번호 형식이 아닙니다.');
-      return;
+      setEmailError(true);
+    }
+    if (!isPassword(form.password)) {
+      setPasswordError(true);
     }
   };
 
@@ -58,7 +72,9 @@ const LoginForm = () => {
             // autoComplete="off"
             onChange={onChange}
           />
-
+          {emailError ? (
+            <p className="error-msg">이메일 형식이 잘못되었습니다.</p>
+          ) : null}
           <input
             type="password"
             name="password"
@@ -66,6 +82,9 @@ const LoginForm = () => {
             placeholder="Password"
             onChange={onChange}
           />
+          {passwordError ? (
+            <p className="error-msg">비밀번호 형식이 잘못되었습니다.</p>
+          ) : null}
           <button onClick={handleLogin}>Login</button>
         </form>
       </div>
@@ -109,6 +128,13 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    > .error-msg {
+      color: #ff6950;
+      font-size: 0.75rem;
+      margin-left: 0.3rem;
+      margin-top: -0.6rem;
+      margin-bottom: 0.3rem;
+    }
     > input {
       width: 18rem;
       height: 2.5rem;

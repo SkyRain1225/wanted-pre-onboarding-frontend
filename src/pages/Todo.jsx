@@ -9,6 +9,29 @@ const Todo = () => {
   const navigate = useNavigate();
   const [todos, setTodos] = useState(undefined);
 
+  const handleEdit = (id, title, isCompleted) => {
+    instanceAuth
+      .put(`/todos/${id}`, {
+        todo: title,
+        isCompleted: isCompleted,
+      })
+      .then((res) => {
+        console.log(res);
+        setTodos(
+          todos.map((todo) => {
+            if (todo.id === id) {
+              todo.todo = title;
+              todo.isCompleted = isCompleted;
+            }
+            return todo;
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const handleDelete = (id) => {
     instanceAuth
       .delete(`/todos/${id}`)
@@ -54,7 +77,11 @@ const Todo = () => {
           Logout
         </div>
         <TodoCreate todos={todos} setTodos={setTodos} />
-        <TodoList todos={todos} handleDelete={handleDelete} />
+        <TodoList
+          todos={todos}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+        />
       </div>
     </Container>
   );
