@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { instance, instanceAuth } from '../api/api';
+import { instance } from '../api/api';
 import TodoCreate from '../components/Todo/TodoCreate';
 import TodoList from '../components/Todo/TodoList';
 
@@ -10,7 +10,7 @@ const Todo = () => {
   const [todos, setTodos] = useState(undefined);
 
   const handleEdit = (id, title, isCompleted) => {
-    instanceAuth
+    instance
       .put(`/todos/${id}`, {
         todo: title,
         isCompleted: isCompleted,
@@ -33,7 +33,7 @@ const Todo = () => {
   };
 
   const handleDelete = (id) => {
-    instanceAuth
+    instance
       .delete(`/todos/${id}`)
       .then((res) => {
         setTodos((prev) => prev.filter((todo) => todo.id !== id));
@@ -50,7 +50,7 @@ const Todo = () => {
     const token = localStorage.getItem('token');
     console.log(token);
     if (token) {
-      instanceAuth.get('/todos').then((res) => {
+      instance.get('/todos').then((res) => {
         setTodos(res.data);
       });
     }

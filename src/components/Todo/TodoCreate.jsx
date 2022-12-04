@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { instanceAuth } from '../../api/api';
+import { instance } from '../../api/api';
 
 const TodoCreate = ({ setTodos }) => {
   const [value, setValue] = useState('');
@@ -10,14 +10,18 @@ const TodoCreate = ({ setTodos }) => {
   };
 
   const handleSubmit = () => {
-    instanceAuth
-      .post('/todos', {
-        todo: value,
-      })
-      .then((res) => {
-        setValue('');
-        setTodos((prev) => [...prev, res.data]);
-      });
+    if (value) {
+      instance
+        .post('/todos', {
+          todo: value,
+        })
+        .then((res) => {
+          setValue('');
+          setTodos((prev) => [...prev, res.data]);
+        });
+    } else {
+      alert('할 일을 입력해주세요.');
+    }
   };
 
   const handleKeyPress = (e) => {

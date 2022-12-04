@@ -4,15 +4,23 @@ import Loading from '../Loading';
 
 const TodoList = ({ todos, handleDelete, handleEdit }) => {
   const [edit, setEdit] = useState(undefined);
-  const [checked, setChecked] = useState(undefined);
+  const [checked, setChecked] = useState(false);
   const [value, setValue] = useState('');
 
   const handleEditMode = (id, isComplete) => {
+    console.log('ddddd');
+
+    if (edit === id) {
+      return;
+    }
+
+    setValue(todos.find((todo) => todo.id === id).todo);
     setEdit(id);
     setChecked(isComplete);
   };
 
   const handleChecked = (id) => {
+    console.log('sdsdsd');
     setChecked(!checked);
   };
 
