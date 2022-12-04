@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'https://pre-onboarding-selection-task.shop';
-const TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QwMTJAbmF2ZXIuY29tIiwic3ViIjo1MSwiaWF0IjoxNjcwMTA0MzY1LCJleHAiOjE2NzA3MDkxNjV9.SKwXZuqBMYPi9mMNv1tm4JRRun1dPH2XxmmA7RZng3c';
+const TOKEN = localStorage.getItem('token');
 
 const instance = axios.create({
   baseURL: BASE_URL,

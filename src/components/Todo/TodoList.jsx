@@ -3,12 +3,19 @@ import styled from 'styled-components';
 import Loading from '../Loading';
 
 const TodoList = ({ todos, handleDelete }) => {
-  if (!todos.length) {
+  if (!todos) {
     return (
       <Container>
         <div className="loding-form">
           <Loading />
         </div>
+      </Container>
+    );
+  }
+  if (todos && !todos.length) {
+    return (
+      <Container>
+        <div className="todos-message">아직 설정된 할일이 없어요!</div>
       </Container>
     );
   }
@@ -55,6 +62,11 @@ const Container = styled.div`
   overflow-y: scroll;
   > .loding-form {
     margin-top: 9rem;
+  }
+  > .todos-message {
+    margin-top: 9rem;
+    font-size: 1.5rem;
+    color: #888;
   }
 `;
 

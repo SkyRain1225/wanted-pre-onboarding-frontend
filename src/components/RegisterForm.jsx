@@ -1,12 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { isEmail, isPassword } from '../assets/Regex';
+import { instance } from '../api/api';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
 
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+
+  const onChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+    console.log(form);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const handleRegister = () => {
+    if (isEmail(form.email) && isPassword(form.password)) {
+      instance
+        .post('/auth/signup', form)
+        .then((res) => {
+          localStorage.setItem('token', Object.values(res.data));
+          navigate('/todo');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (!isEmail(form.email)) {
+      alert('이메일 형식이 아닙니다.');
+      return;
+    } else if (!isPassword(form.password)) {
+      alert('비밀번호 형식이 아닙니다.');
+      return;
+    }
   };
 
   return (
@@ -38,6 +74,7 @@ const RegisterForm = () => {
             className="email"
             placeholder="Email"
             autoComplete="off"
+            onChange={onChange}
           />
 
           <input
@@ -45,8 +82,9 @@ const RegisterForm = () => {
             name="password"
             className="password"
             placeholder="Password"
+            onChange={onChange}
           />
-          <button type="submit">Submit</button>
+          <button onClick={handleRegister}>Submit</button>
         </form>
       </div>
     </Container>
